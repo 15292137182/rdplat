@@ -88,21 +88,3 @@ renren-fast
  - 前端部署完毕，就可以访问项目了，账号：admin，密码：admin
  
  <br>
-
- **项目演示**
-- 演示地址：http://fast.demo.renren.io
-- 账号密码：admin/admin
-<br> 
-
-**接口文档效果图：**
-![输入图片说明](http://cdn.renren.io/img/6e8d7575fb8240d49b949dc0f02547bc "在这里输入图片标题")
-<br> <br> <br> 
-
-
-**效果图：**
-![输入图片说明](https://gitee.com/uploads/images/2018/0505/173115_d3c045ef_63154.jpeg "在这里输入图片标题")
-![输入图片说明](https://gitee.com/uploads/images/2018/0624/225728_b06f72b3_63154.jpeg "在这里输入图片标题")
-![输入图片说明](https://gitee.com/uploads/images/2018/0505/173140_79928d91_63154.jpeg "在这里输入图片标题")
-![输入图片说明](https://gitee.com/uploads/images/2018/0505/173151_12d065db_63154.jpeg "在这里输入图片标题")
-
-<br>
