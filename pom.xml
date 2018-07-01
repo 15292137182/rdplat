@@ -44,9 +44,9 @@
 		<!--wagon plugin 配置-->
 		<service-path>/work/renren</service-path>
 		<pack-name>${project.artifactId}-${project.version}.jar</pack-name>
-		<remote-addr>192.168.1.10:22</remote-addr>
+		<remote-addr>192.168.5.11:22</remote-addr>
 		<remote-username>root</remote-username>
-		<remote-passwd>123456</remote-passwd>
+		<remote-passwd>system</remote-passwd>
 	</properties>
 
 	<dependencies>
@@ -280,7 +280,8 @@
 					<!--</execution>-->
 				<!--</executions>-->
 				<configuration>
-					<imageName>renren/fast</imageName>
+					<!--<registryUrl>192.168.5.11</registryUrl>-->
+					<imageName>tiehuwen/rdplst</imageName>
 					<dockerDirectory>${project.basedir}</dockerDirectory>
 					<resources>
 						<resource>
