@@ -99,6 +99,9 @@ public class SysOssController {
 		}else if(config.getType() == Constant.CloudService.QCLOUD.getValue()){
 			//校验腾讯云数据
 			ValidatorUtils.validateEntity(config, QcloudGroup.class);
+		}else if (config.getType()==Constant.CloudService.FASTDFS.getValue()){
+			//校验fastDfs
+
 		}
 
         sysConfigService.updateValueByKey(KEY, new Gson().toJson(config));

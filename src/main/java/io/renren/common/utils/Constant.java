@@ -86,7 +86,13 @@ public class Constant {
         /**
          * 腾讯云
          */
-        QCLOUD(3);
+        QCLOUD(3),
+
+        /**
+         * fastDFS
+         */
+        FASTDFS(4)
+        ;
 
         private int value;
 

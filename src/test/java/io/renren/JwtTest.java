@@ -19,6 +19,9 @@ public class JwtTest {
         String token = jwtUtils.generateToken(1);
 
         System.out.println(token);
+        System.out.println(token);
+        System.out.println(token);
+        System.out.println(token);
     }
 
 }
