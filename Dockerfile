@@ -3,5 +3,4 @@ EXPOSE 8080
 
 VOLUME /tmp
 ADD rdplat.jar /rdplat.jar
-RUN bash -c 'touch /rdplat.jar'
-ENTRYPOINT ["java","-jar","/rdplat.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
