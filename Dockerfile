@@ -2,6 +2,6 @@ FROM java:8
 EXPOSE 8080
 
 VOLUME /tmp
-ADD rdplat.jar /app.jar
-RUN bash -c 'touch /app.jar'
-ENTRYPOINT ["java","-jar","/app.jar"]
+ADD rdplat.jar /rdplat.jar
+RUN bash -c 'touch /rdplat.jar'
+ENTRYPOINT ["java","-jar","/rdplat.jar"]

@@ -9,13 +9,20 @@ import org.apache.commons.io.IOUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -54,18 +61,20 @@ public class SysGeneratorController {
 	 */
 	@RequestMapping("/code")
 	@RequiresPermissions("sys:generator:code")
-	public void code(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void code(@RequestBody String [] tables,HttpServletResponse response) throws IOException{
 		String[] tableNames = new String[]{};
-		String tables = request.getParameter("tables");
-		tableNames = JSON.parseArray(tables).toArray(tableNames);
+		tableNames = Arrays.asList(tables).toArray(tableNames);
 		
 		byte[] data = sysGeneratorService.generatorCode(tableNames);
 		
 		response.reset();  
-        response.setHeader("Content-Disposition", "attachment; filename=\"renren.zip\"");  
+        response.setHeader("Content-Disposition", "attachment; filename=\"generatorCode.zip\"");
         response.addHeader("Content-Length", "" + data.length);  
-        response.setContentType("application/octet-stream; charset=UTF-8");  
-  
-        IOUtils.write(data, response.getOutputStream());  
+        response.setContentType("application/x-msdownload; charset=UTF-8");
+
+		ServletOutputStream outputStream = response.getOutputStream();
+
+		outputStream.write(data);
+		outputStream.close();
 	}
 }
