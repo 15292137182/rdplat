@@ -1,7 +1,7 @@
 **项目说明** 
-- renren-fast是一个轻量级的，前后端分离的Java快速开发平台，能快速开发项目并交付【接私活利器】
+- rdplat-fast是一个轻量级的，前后端分离的Java快速开发平台，能快速开发项目并交付【接私活利器】
 - 支持MySQL、Oracle、SQL Server、PostgreSQL等主流数据库
-- 前端地址：https://github.com/daxiongYang/renren-fast-vue
+- 前端地址：https://github.com/daxiongYang/rdplat-fast-vue
 <br> 
 <br>
  
@@ -21,7 +21,7 @@
 
 **项目结构** 
 ```
-renren-fast
+rdplat-fast
 ├─db  项目SQL语句
 │
 ├─common 公共模块
@@ -49,7 +49,7 @@ renren-fast
 
 **如何交流、反馈、参与贡献？** 
 - 开发文档：http://www.renren.io/guide
-- Git仓库：https://gitee.com/renrenio/renren-fast
+- Git仓库：https://gitee.com/renrenio/rdplat-fast
 - [人人开源](http://www.renren.io)：http://www.renren.io   
 - 官方QQ群：324780204、145799952
 - 技术讨论、二次开发等咨询、问题和建议，请移步到官方社区，我会在第一时间进行解答和回复！
@@ -77,14 +77,14 @@ renren-fast
 - 执行db/mysql.sql文件，初始化数据
 - 修改application-dev.yml，更新MySQL账号和密码
 - Eclipse、IDEA运行RenrenApplication.java，则可启动项目
-- Swagger路径：http://localhost:8080/renren-fast/swagger/index.html
+- Swagger路径：http://localhost:8080/rdplat-fast/swagger/index.html
 
 <br> 
 
  **前端部署**
  - 本项目是前后端分离的，还需要部署前端，才能运行起来
- - 前端下载地址：https://github.com/daxiongYang/renren-fast-vue
- - 前端部署文档：https://github.com/daxiongYang/renren-fast-vue/wiki/Getting-started
+ - 前端下载地址：https://github.com/daxiongYang/rdplat-fast-vue
+ - 前端部署文档：https://github.com/daxiongYang/rdplat-fast-vue/wiki/Getting-started
  - 前端部署完毕，就可以访问项目了，账号：admin，密码：admin
  
  <br>

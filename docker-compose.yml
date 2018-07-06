@@ -1,6 +1,6 @@
 version: '2'
 services:
-  renren-fast:
+  rdplat-fast:
     image: tiehuwen/rdplat
     ports:
       - "8080:8080"
