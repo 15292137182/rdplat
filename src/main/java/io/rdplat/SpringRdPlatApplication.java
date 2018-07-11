@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @Import({DynamicDataSourceConfig.class})
-public class RenrenApplication extends SpringBootServletInitializer {
+public class SpringRdPlatApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(RenrenApplication.class);
+        SpringApplication application = new SpringApplication(SpringRdPlatApplication.class);
 //        application.setBannerMode(Banner.Mode.OFF);
         application.run(args);
 
@@ -22,6 +22,6 @@ public class RenrenApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(RenrenApplication.class);
+        return application.sources(SpringRdPlatApplication.class);
     }
 }

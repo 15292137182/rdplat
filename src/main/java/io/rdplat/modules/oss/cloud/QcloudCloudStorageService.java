@@ -1,35 +1,27 @@
-/**
- * Copyright 2018 人人开源 http://www.renren.io
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
 package io.rdplat.modules.oss.cloud;
 
 
 import com.alibaba.fastjson.JSONObject;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
+import com.qcloud.cos.request.DelFileRequest;
+import com.qcloud.cos.request.GetFileInputStreamRequest;
 import com.qcloud.cos.request.UploadFileRequest;
 import com.qcloud.cos.sign.Credentials;
 import io.rdplat.common.exception.RRException;
+import io.rdplat.common.utils.ServletUtils;
 import org.apache.commons.io.IOUtils;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.UUID;
 
 /**
  * 腾讯云存储
+ *
  * @author chenshun
  * @email sunlightcs@gmail.com
  * @date 2017-03-26 20:51
@@ -37,38 +29,38 @@ import java.io.InputStream;
 public class QcloudCloudStorageService extends CloudStorageService {
     private COSClient client;
 
-    public QcloudCloudStorageService(CloudStorageConfig config){
+    public QcloudCloudStorageService(CloudStorageConfig config) {
         this.config = config;
 
         //初始化
         init();
     }
 
-    private void init(){
-    	Credentials credentials = new Credentials(config.getQcloudAppId(), config.getQcloudSecretId(),
+    private void init() {
+        Credentials credentials = new Credentials(config.getQcloudAppId(), config.getQcloudSecretId(),
                 config.getQcloudSecretKey());
-    	
-    	//初始化客户端配置
+
+        //初始化客户端配置
         ClientConfig clientConfig = new ClientConfig();
         //设置bucket所在的区域，华南：gz 华北：tj 华东：sh
         clientConfig.setRegion(config.getQcloudRegion());
-        
-    	client = new COSClient(clientConfig, credentials);
+
+        client = new COSClient(clientConfig, credentials);
     }
 
     @Override
     public String upload(byte[] data, String path) {
         //腾讯云必需要以"/"开头
-        if(!path.startsWith("/")) {
+        if (!path.startsWith("/")) {
             path = "/" + path;
         }
-        
+
         //上传到腾讯云
         UploadFileRequest request = new UploadFileRequest(config.getQcloudBucketName(), path, data);
         String response = client.uploadFile(request);
 
         JSONObject jsonObject = JSONObject.parseObject(response);
-        if(jsonObject.getInteger("code") != 0) {
+        if (jsonObject.getInteger("code") != 0) {
             throw new RRException("文件上传失败，" + jsonObject.getString("message"));
         }
 
@@ -77,7 +69,7 @@ public class QcloudCloudStorageService extends CloudStorageService {
 
     @Override
     public String upload(InputStream inputStream, String path) {
-    	try {
+        try {
             byte[] data = IOUtils.toByteArray(inputStream);
             return this.upload(data, path);
         } catch (IOException e) {
@@ -93,5 +85,19 @@ public class QcloudCloudStorageService extends CloudStorageService {
     @Override
     public String uploadSuffix(InputStream inputStream, String suffix) {
         return upload(inputStream, getPath(config.getQcloudPrefix(), suffix));
+    }
+
+    public void download(String path) throws Exception {
+        String aliyunDomain = config.getAliyunDomain();
+        String substring = path.substring(aliyunDomain.length() + 1, path.length());
+        GetFileInputStreamRequest inputStreamRequest = new GetFileInputStreamRequest(config.getQcloudBucketName(), substring);
+        InputStream content = client.getFileInputStream(inputStreamRequest);
+        downloadFile(substring, content);
+    }
+
+
+    public void delete(String path) {
+        DelFileRequest delFileRequest = new DelFileRequest(config.getQcloudBucketName(), path);
+        client.delFile(delFileRequest);
     }
 }

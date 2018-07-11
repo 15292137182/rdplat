@@ -1,19 +1,3 @@
-/**
- * Copyright 2018 人人开源 http://www.renren.io
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
 package io.rdplat.modules.oss.cloud;
 
 import com.qiniu.common.Zone;
@@ -29,6 +13,7 @@ import java.io.InputStream;
 
 /**
  * 七牛云存储
+ *
  * @author chenshun
  * @email sunlightcs@gmail.com
  * @date 2017-03-25 15:41
@@ -37,14 +22,14 @@ public class QiniuCloudStorageService extends CloudStorageService {
     private UploadManager uploadManager;
     private String token;
 
-    public QiniuCloudStorageService(CloudStorageConfig config){
+    public QiniuCloudStorageService(CloudStorageConfig config) {
         this.config = config;
 
         //初始化
         init();
     }
 
-    private void init(){
+    private void init() {
         uploadManager = new UploadManager(new Configuration(Zone.autoZone()));
         token = Auth.create(config.getQiniuAccessKey(), config.getQiniuSecretKey()).
                 uploadToken(config.getQiniuBucketName());
@@ -82,5 +67,14 @@ public class QiniuCloudStorageService extends CloudStorageService {
     @Override
     public String uploadSuffix(InputStream inputStream, String suffix) {
         return upload(inputStream, getPath(config.getQiniuPrefix(), suffix));
+    }
+
+    public void download(String path) throws Exception {
+        String aliyunDomain = config.getAliyunDomain();
+        String substring = path.substring(aliyunDomain.length() + 1, path.length());
+    }
+
+
+    public void delete(String path) {
     }
 }

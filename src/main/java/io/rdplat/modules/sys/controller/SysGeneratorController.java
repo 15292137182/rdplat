@@ -58,9 +58,8 @@ public class SysGeneratorController {
         tableNames = Arrays.asList(tables.split(",")).toArray(tableNames);
 
         byte[] data = sysGeneratorService.generatorCode(tableNames);
-
         response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=\"GenCode.zip\"");
+        response.setHeader("Content-Disposition", "attachment; filename=\"generator.zip\"");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/x-msdownload; charset=UTF-8");
 

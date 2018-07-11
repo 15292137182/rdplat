@@ -1,18 +1,3 @@
-/**
- * Copyright 2018 人人开源 http://www.renren.io
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
 
 package io.rdplat.modules.oss.controller;
 
@@ -36,9 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 文件上传
@@ -129,7 +116,6 @@ public class SysOssController {
 		ossEntity.setUrl(url);
 		ossEntity.setCreateDate(new Date());
 		sysOssService.insert(ossEntity);
-
 		return R.ok().put("url", url);
 	}
 
@@ -140,9 +126,25 @@ public class SysOssController {
 	@PostMapping("/delete")
 	@RequiresPermissions("sys:oss:all")
 	public R delete(@RequestBody Long[] ids){
+		List<SysOssEntity> sysOssEntities = sysOssService.selectBatchIds(Arrays.asList(ids));
+		sysOssEntities.forEach(sys->{
+			String url = sys.getUrl();
+			OSSFactory.build(url).delete(url);
+		});
 		sysOssService.deleteBatchIds(Arrays.asList(ids));
-
 		return R.ok();
+	}
+
+	@GetMapping("/download")
+	public void download(String ids) throws Exception {
+		String[] split = ids.split(",");
+		List<SysOssEntity> sysOssEntities = sysOssService.selectBatchIds(Arrays.asList(split));
+		StringBuilder builder = new StringBuilder();
+		sysOssEntities.forEach(sys->{
+			builder.append(sys.getUrl()).append(",");
+		});
+		String substring = builder.substring(0, builder.length() - 1);
+		OSSFactory.build(sysOssEntities.get(0).getUrl()).download(substring);
 	}
 
 }
