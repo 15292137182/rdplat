@@ -81,6 +81,7 @@ public class SysDataDictController {
     @RequestMapping("/update")
     @RequiresPermissions("sys:dataDict:update")
     public R update(@RequestBody SysDataDictEntity sysDataDict) {
+        sysDataDict.modify();
         sysDataDictService.updateById(sysDataDict);
 
         return R.ok();

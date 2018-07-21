@@ -13,6 +13,8 @@ import java.util.Date;
  */
 public class BaseEntity implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * 创建人
      */
@@ -48,37 +50,53 @@ public class BaseEntity implements Serializable {
 
 
 
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
+    /**
+     * 设置：创建时间
+     */
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
-
-    public String getModifyUser() {
-        return modifyUser;
+    /**
+     * 获取：创建时间
+     */
+    public String getCreateTime() {
+        return createTime;
     }
-
-    public void setModifyUser(String modifyUser) {
-        this.modifyUser = modifyUser;
+    /**
+     * 设置：创建人
+     */
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
     }
-
-    public String getModifyTime() {
-        return modifyTime;
+    /**
+     * 获取：创建人
+     */
+    public String getCreateUser() {
+        return createUser;
     }
-
+    /**
+     * 设置：修改时间
+     */
     public void setModifyTime(String modifyTime) {
         this.modifyTime = modifyTime;
     }
-
+    /**
+     * 获取：修改时间
+     */
+    public String getModifyTime() {
+        return modifyTime;
+    }
+    /**
+     * 设置：修改人
+     */
+    public void setModifyUser(String modifyUser) {
+        this.modifyUser = modifyUser;
+    }
+    /**
+     * 获取：修改人
+     */
+    public String getModifyUser() {
+        return modifyUser;
+    }
 
 }

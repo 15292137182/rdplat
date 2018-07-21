@@ -2,12 +2,11 @@ package ${package}.${moduleName}.entity;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import io.rdplat.common.base.BaseEntity;
 
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
 #end
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * ${comments}
@@ -17,8 +16,7 @@ import java.util.Date;
  * @date ${datetime}
  */
 @TableName("${tableName}")
-public class ${className}Entity implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ${className}Entity extends BaseEntity {
 
 #foreach ($column in $columns)
 	/**

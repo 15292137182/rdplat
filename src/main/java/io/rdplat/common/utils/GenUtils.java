@@ -55,7 +55,8 @@ public class GenUtils {
         boolean hasBigDecimal = false;
         //表信息
         TableEntity tableEntity = new TableEntity();
-        tableEntity.setTableName(table.get("tableName" ));
+        String tableName = table.get("tableName");
+        tableEntity.setTableName(tableName.split("_")[1]);
         tableEntity.setComments(table.get("tableComment" ));
         //表名转换成Java类名
         String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix" ));
@@ -65,8 +66,12 @@ public class GenUtils {
         //列信息
         List<ColumnEntity> columsList = new ArrayList<>();
         for(Map<String, String> column : columns){
+            String columnName = column.get("columnName");
+            if ("create_time".equals(columnName) || "create_user".equals(className) || "modify_user".equals(className) || "modify_user".equals(className)) {
+                break;
+            }
             ColumnEntity columnEntity = new ColumnEntity();
-            columnEntity.setColumnName(column.get("columnName" ));
+            columnEntity.setColumnName(columnName);
             columnEntity.setDataType(column.get("dataType" ));
             columnEntity.setComments(column.get("columnComment" ));
             columnEntity.setExtra(column.get("extra" ));
@@ -104,7 +109,7 @@ public class GenUtils {
         mainPath = StringUtils.isBlank(mainPath) ? "io.rdplat" : mainPath;
         //封装模板数据
         Map<String, Object> map = new HashMap<>();
-        map.put("tableName", tableEntity.getTableName());
+        map.put("tableName", tableName);
         map.put("comments", tableEntity.getComments());
         map.put("pk", tableEntity.getPk());
         map.put("className", tableEntity.getClassName());
@@ -114,7 +119,9 @@ public class GenUtils {
         map.put("hasBigDecimal", hasBigDecimal);
         map.put("mainPath", mainPath);
         map.put("package", config.getString("package" ));
-        map.put("moduleName", config.getString("moduleName" ));
+//        String moduleName = config.getString("moduleName");
+        String moduleName = tableName.split("_")[0];
+        map.put("moduleName", moduleName);
         map.put("author", config.getString("author" ));
         map.put("email", config.getString("email" ));
         map.put("datetime", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
@@ -130,7 +137,7 @@ public class GenUtils {
 
             try {
                 //添加到zip
-                zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), config.getString("package" ), config.getString("moduleName" ))));
+                zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), config.getString("package" ), moduleName)));
                 IOUtils.write(sw.toString(), zip, "UTF-8" );
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
