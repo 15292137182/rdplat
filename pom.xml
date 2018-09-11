@@ -6,7 +6,7 @@
 	<artifactId>rdplat</artifactId>
 	<version>2.1.0</version>
 	<packaging>jar</packaging>
-	<description>rdplat-fast</description>
+	<description>rdplat</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -41,6 +41,7 @@
 		<fastjson.version>1.2.47</fastjson.version>
 		<hutool.version>4.1.1</hutool.version>
 		<velocity.version>1.7</velocity.version>
+        <mail.version>1.4.7</mail.version>
 
 		<!--wagon plugin 配置-->
 		<service-path>/work/rdplat</service-path>
@@ -228,6 +229,19 @@
 			<groupId>org.apache.velocity</groupId>
 			<version>${velocity.version}</version>
 		</dependency>
+
+        <!-- javamail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+
+		<!--<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.0</version>
+		</dependency>-->
 	</dependencies>
 
 	<build>
@@ -300,7 +314,7 @@
 					</resources>
 				</configuration>
 				&lt;!&ndash; 运行命令 mvn clean package docker:build 打包并生成docker镜像 &ndash;&gt;
-			</plugin>-->
+			</plugin>
 
 
 
@@ -315,7 +329,7 @@
 					</buildArgs>
 				</configuration>
 			</plugin>
-
+-->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

@@ -8,9 +8,9 @@ spring:
                 username: root
                 password: smalltiger
             second:  #数据源2
-                url: jdbc:mysql://192.168.5.10:3306/rdplat_fast?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+                url: jdbc:mysql://120.78.161.231:3306/rdplat_fast?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
                 username: root
-                password: 123456
+                password: smalltiger
             initial-size: 10
             max-active: 100
             min-idle: 10
